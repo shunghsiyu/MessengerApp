@@ -1,20 +1,28 @@
 package com.example.myfirstapp;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Random;
 
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.telephony.SmsManager;
+import android.text.SpannableString;
+import android.text.style.ImageSpan;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,11 +38,30 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fragment_main);
 		
+		ButtonClickListener bc=new ButtonClickListener();
+		ButtonClickListener bc2=new ButtonClickListener();
 		textview=(TextView) this.findViewById(R.id.display);
 		numberText=(EditText) this.findViewById(R.id.To);
 		contentText=(EditText) this.findViewById(R.id.edit_message);
 		Button button=(Button) this.findViewById(R.id.button_send);
-		button.setOnClickListener(new ButtonClickListener());
+		button.setOnClickListener(bc);
+		Button showExression=(Button) this.findViewById(R.id.edit);
+		showExression.setOnClickListener(new OnClickListener(){
+			public void onClick(View view){
+				int randomID=new Random().nextInt(9)+1;
+				try{
+					Field field=R.drawable.class.getDeclaredField("face"+randomID);
+					int resourceId=Integer.parseInt(field.get(null).toString());
+					Bitmap bitmap=BitmapFactory.decodeResource(getResources(), resourceId);
+					ImageSpan is=new ImageSpan(MainActivity.this,bitmap);
+					SpannableString ss=new SpannableString("face");
+					ss.setSpan(is,0,4,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+					textview.append(ss);
+				}catch (Exception e){
+					e.printStackTrace();
+				}	
+			}
+		});
 	}
 
 	public void sendMessage(View view){
@@ -63,67 +90,4 @@ public class MainActivity extends Activity {
 		}
 
 	}
-
-
-
-
-	/*public final static String EXTRA_MESSAGE="com.example.myfirstapp.MESSAGE";
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-
-		if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
-	}
-
-	//called when the user clicks the send button
-	public void sendMessage(View view){
-		//do something in response to button
-		Intent intent=new Intent(this, DisplayMessageActivity.class);
-		EditText editText=(EditText) findViewById(R.id.edit_message);
-		String message=editText.getText().toString();
-		intent.putExtra(EXTRA_MESSAGE,message);
-		startActivity(intent);
-	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	/*public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_main, container,
-					false);
-			return rootView;
-		}
-	}*/
-
 }
