@@ -51,16 +51,15 @@
          android:layout_height="wrap_content"
          >
          
- 		<TextView
- 	  style="@style/to"
-  	  android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Enter"
-      android:id="@+id/edit"
-      android:layout_centerVertical="true"
-  	     />
-    	
-    	
+ 		<Button
+ 		  android:background="#8EE5EE"
+ 		  android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerVertical="true"
+          android:text="image"
+          android:id="@+id/edit"
+ 		/>
+ 		
   		<EditText
       android:layout_width="wrap_content"
   	  android:layout_height="wrap_content"

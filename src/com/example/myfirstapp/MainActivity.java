@@ -2,12 +2,19 @@ package com.example.myfirstapp;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.Random;
 
 import android.app.Activity;
 import android.content.Intent;
+
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -16,10 +23,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.telephony.SmsManager;
+import android.text.SpannableString;
+import android.text.style.ImageSpan;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -54,11 +65,30 @@ public class MainActivity extends ActionBarActivity {
 		
 		setContentView(R.layout.fragment_main);
 		
+		ButtonClickListener bc=new ButtonClickListener();
+		ButtonClickListener bc2=new ButtonClickListener();
 		textView=(TextView) this.findViewById(R.id.display);
 		numberText=(EditText) this.findViewById(R.id.To);
 		contentText=(EditText) this.findViewById(R.id.edit_message);
 		Button button=(Button) this.findViewById(R.id.button_send);
-		button.setOnClickListener(new ButtonClickListener());
+		button.setOnClickListener(bc);
+		Button showExression=(Button) this.findViewById(R.id.edit);
+		showExression.setOnClickListener(new OnClickListener(){
+			public void onClick(View view){
+				int randomID=new Random().nextInt(9)+1;
+				try{
+					Field field=R.drawable.class.getDeclaredField("face"+randomID);
+					int resourceId=Integer.parseInt(field.get(null).toString());
+					Bitmap bitmap=BitmapFactory.decodeResource(getResources(), resourceId);
+					ImageSpan is=new ImageSpan(MainActivity.this,bitmap);
+					SpannableString ss=new SpannableString("face");
+					ss.setSpan(is,0,4,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+					textView.append(ss);
+				}catch (Exception e){
+					e.printStackTrace();
+				}	
+			}
+		});
 		// Bind Handler with main Looper
 		mHandler = new Handler(Looper.getMainLooper()) {
 			// Tell main looper to poll uiMessageQueue
@@ -119,7 +149,7 @@ public class MainActivity extends ActionBarActivity {
 	public void sendMessage(View view){
 	   	String message=contentText.getText().toString();
 		if(textView!=null){
-			textView.append("address ");
+			textView.append("address£º ");
 			textView.append(message.trim());
 			textView.append("\n");
 		} else {
