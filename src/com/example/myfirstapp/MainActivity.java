@@ -145,24 +145,12 @@ public class MainActivity extends ActionBarActivity {
 			
 		}).start();
 	}
-
-	public void sendMessage(View view){
-	   	String message=contentText.getText().toString();
-		if(textView!=null){
-			textView.append("address£º ");
-			textView.append(message.trim());
-			textView.append("\n");
-		} else {
-			System.out.println("textview is null!");
-		}
-	}
 	
 	private final class ButtonClickListener implements View.OnClickListener{
 		
 		public void onClick(View v){
 			String number=numberText.getText().toString();
 			String content=contentText.getText().toString();
-			sendMessage(v);
 			tcpSender.send(content);
 			contentText.setText("");
 			Toast.makeText(MainActivity.this,R.string.success,Toast.LENGTH_LONG).show();;
