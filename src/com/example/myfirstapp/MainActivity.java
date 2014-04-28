@@ -73,16 +73,26 @@ public class MainActivity extends ActionBarActivity {
 		Button button=(Button) this.findViewById(R.id.button_send);
 		button.setOnClickListener(bc);
 		Button showExression=(Button) this.findViewById(R.id.edit);
+	
 		showExression.setOnClickListener(new OnClickListener(){
+			//this method is to edit expression in textView
 			public void onClick(View view){
+				//randomly choose a number between 1 to 9
 				int randomID=new Random().nextInt(9)+1;
 				try{
+					//obtain a Field in R.drawable corresponding to the generated random number
 					Field field=R.drawable.class.getDeclaredField("face"+randomID);
+					//obtain the id of the field
 					int resourceId=Integer.parseInt(field.get(null).toString());
+					//obtain bitmap using field id
 					Bitmap bitmap=BitmapFactory.decodeResource(getResources(), resourceId);
+					//create a ImageSpan from bitmap
 					ImageSpan is=new ImageSpan(MainActivity.this,bitmap);
+					//create a SpannableString to which we insert the ImageSpan object
 					SpannableString ss=new SpannableString("face");
+					//replace face with ImageSpan object
 					ss.setSpan(is,0,4,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+					//append the image to textView
 					textView.append(ss);
 				}catch (Exception e){
 					e.printStackTrace();
