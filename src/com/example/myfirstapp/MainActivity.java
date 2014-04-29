@@ -49,6 +49,7 @@ public class MainActivity extends ActionBarActivity {
 	private Queue<String> uiMessageQueue;
 	private Handler mHandler;
 	private Fragment mFragment;
+	private View fragmentFace;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,30 +74,22 @@ public class MainActivity extends ActionBarActivity {
 		Button button=(Button) this.findViewById(R.id.button_send);
 		button.setOnClickListener(bc);
 		Button showExression=(Button) this.findViewById(R.id.edit);
-	
+		
+		final ViewGroup linear = (ViewGroup) this.findViewById(R.id.linear);
+		fragmentFace = this.getLayoutInflater().inflate(R.layout.fragment_face, linear, false);
 		showExression.setOnClickListener(new OnClickListener(){
-			//this method is to edit expression in textView
 			public void onClick(View view){
-				//randomly choose a number between 1 to 9
-				int randomID=new Random().nextInt(9)+1;
-				try{
-					//obtain a Field in R.drawable corresponding to the generated random number
-					Field field=R.drawable.class.getDeclaredField("face"+randomID);
-					//obtain the id of the field
-					int resourceId=Integer.parseInt(field.get(null).toString());
-					//obtain bitmap using field id
-					Bitmap bitmap=BitmapFactory.decodeResource(getResources(), resourceId);
-					//create a ImageSpan from bitmap
-					ImageSpan is=new ImageSpan(MainActivity.this,bitmap);
-					//create a SpannableString to which we insert the ImageSpan object
-					SpannableString ss=new SpannableString("face");
-					//replace face with ImageSpan object
-					ss.setSpan(is,0,4,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
-					//append the image to textView
-					textView.append(ss);
-				}catch (Exception e){
-					e.printStackTrace();
-				}	
+				// Check if the view has been added to fragment_main
+				if(linear.findViewById(R.id.horizontalScrollView) == null) {
+					// Add the view to fragment_main if it hasn't been added
+					linear.addView(fragmentFace);
+				} else if(fragmentFace.getVisibility() == View.GONE) {
+					// Toggle the view to visible if it is not
+					fragmentFace.setVisibility(View.VISIBLE);
+				} else {
+					// Toggle the view to hidden if it is visible
+					fragmentFace.setVisibility(View.GONE);
+				}
 			}
 		});
 		// Bind Handler with main Looper
