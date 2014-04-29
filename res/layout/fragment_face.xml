@@ -41,16 +41,16 @@
             android:src="@drawable/face5" />
 
         <ImageButton
+            android:id="@+id/imageFace6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/face6" />
+
+        <ImageButton
             android:id="@+id/imageFace7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/face7" />
-
-        <ImageButton
-            android:id="@+id/imageFace8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/face8" />
 
     </LinearLayout>
 
