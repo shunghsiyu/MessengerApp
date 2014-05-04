@@ -1,4 +1,4 @@
-package com.exmaple.myfirstapp;
+package com.example.myfirstapp;
 
 import java.net.*;
 import java.io.*;
