@@ -4,7 +4,7 @@ import java.net.*;
 import java.io.*;
 
 
-public class broadcast implements Runnable {
+public class UdpBroadcaster implements Runnable {
 	private static String ip;
 	static int RECIEVE_LENGTH = 1024;
 	static int BROADCAST_PORT = 9898;
