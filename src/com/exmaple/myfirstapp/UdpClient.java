@@ -1,4 +1,4 @@
-package messenger;
+package com.exmaple.myfirstapp;
 
 import java.net.*;
 import java.io.*;
