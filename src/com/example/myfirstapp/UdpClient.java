@@ -10,17 +10,39 @@ public class UdpClient implements Runnable {
 	static int TTLTime = 255;
 	TcpSender ts;
 
-	@Override
+
 	public void run() {
 		//ts.addReceiver(ip);
-		InetAddress serverAddress = InetAddress.getByName(serverAddressStr);
+		InetAddress serverAddress = null;
+		try {
+			serverAddress = InetAddress.getByName(serverAddressStr);
+		} catch (UnknownHostException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		int port = BROADCAST_PORT;
-		MulticastSocket ms = new MulticastSocket();
-		ms.setTimeToLive(TTLTime);
+		MulticastSocket ms = null;
+		try {
+			ms = new MulticastSocket();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			ms.setTimeToLive(TTLTime);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		byte[] message = new byte[100];
 		DatagramPacket dataPacket = new DatagramPacket(message, message.length,
 				serverAddress, port);
-		ms.send(dataPacket);
+		try {
+			ms.send(dataPacket);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ms.close();
 
 	}
