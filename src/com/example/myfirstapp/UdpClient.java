@@ -3,14 +3,13 @@ package com.example.myfirstapp;
 import java.net.*;
 import java.io.*;
 
-
 public class UdpClient implements Runnable {
 	static String serverAddressStr = "224.0.0.1";
 	static int BROADCAST_PORT = 9898;
 	static int TTLTime = 255;
 	TcpSender ts;
 
-	@Override
+
 	public void run() {
 		//ts.addReceiver(ip);
 		InetAddress serverAddress = null;
