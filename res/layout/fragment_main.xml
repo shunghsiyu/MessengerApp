@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linear"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
     android:orientation="vertical"
-    >  
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp" >
 	
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -46,45 +45,38 @@
    	    </ScrollView>
     	 
     </RelativeLayout>
-     <RelativeLayout
-         android:layout_width="fill_parent"
-         android:layout_height="wrap_content"
-         >
-         
- 		<Button
- 		  android:background="#8EE5EE"
- 		  android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_centerVertical="true"
-          android:text="image"
-          android:id="@+id/edit"
- 		/>
- 		
-  		<EditText
-      android:layout_width="wrap_content"
-  	  android:layout_height="wrap_content"
-  	  android:minLines="1"
-  	  android:ems="6"
-  	  android:id="@+id/edit_message"
-  	  android:layout_toRightOf="@id/edit"
-  	  android:inputType="textMultiLine"
-  	 
-  	   />
-       
-    <Button
-        android:background="#8EE5EE"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_alignParentRight="true"
-       android:text="@string/button_send"
-       android:onClick="sendMessage"
-       android:id="@+id/button_send"
-       android:layout_toRightOf="@id/edit_message"
-  	  android:layout_alignBottom="@id/edit_message"
-       />
-  
-    	
-    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#8EE5EE"
+            android:text="image" />
+
+        <EditText
+            android:id="@+id/edit_message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:minLines="1" >
+
+            <requestFocus />
+        </EditText>
+
+        <Button
+            android:id="@+id/button_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#8EE5EE"
+            android:onClick="sendMessage"
+            android:text="@string/button_send" />
+    </LinearLayout>
   	 
      </LinearLayout>   
   

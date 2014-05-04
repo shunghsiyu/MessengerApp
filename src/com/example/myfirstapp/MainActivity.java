@@ -49,6 +49,7 @@ public class MainActivity extends ActionBarActivity {
 	private Queue<String> uiMessageQueue;
 	private Handler mHandler;
 	private Fragment mFragment;
+	private View fragmentFace;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,20 +74,22 @@ public class MainActivity extends ActionBarActivity {
 		Button button=(Button) this.findViewById(R.id.button_send);
 		button.setOnClickListener(bc);
 		Button showExression=(Button) this.findViewById(R.id.edit);
+		
+		final ViewGroup linear = (ViewGroup) this.findViewById(R.id.linear);
+		fragmentFace = this.getLayoutInflater().inflate(R.layout.fragment_face, linear, false);
 		showExression.setOnClickListener(new OnClickListener(){
 			public void onClick(View view){
-				int randomID=new Random().nextInt(9)+1;
-				try{
-					Field field=R.drawable.class.getDeclaredField("face"+randomID);
-					int resourceId=Integer.parseInt(field.get(null).toString());
-					Bitmap bitmap=BitmapFactory.decodeResource(getResources(), resourceId);
-					ImageSpan is=new ImageSpan(MainActivity.this,bitmap);
-					SpannableString ss=new SpannableString("face");
-					ss.setSpan(is,0,4,SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
-					textView.append(ss);
-				}catch (Exception e){
-					e.printStackTrace();
-				}	
+				// Check if the view has been added to fragment_main
+				if(linear.findViewById(R.id.horizontalScrollView) == null) {
+					// Add the view to fragment_main if it hasn't been added
+					linear.addView(fragmentFace);
+				} else if(fragmentFace.getVisibility() == View.GONE) {
+					// Toggle the view to visible if it is not
+					fragmentFace.setVisibility(View.VISIBLE);
+				} else {
+					// Toggle the view to hidden if it is visible
+					fragmentFace.setVisibility(View.GONE);
+				}
 			}
 		});
 		// Bind Handler with main Looper
@@ -145,24 +148,12 @@ public class MainActivity extends ActionBarActivity {
 			
 		}).start();
 	}
-
-	public void sendMessage(View view){
-	   	String message=contentText.getText().toString();
-		if(textView!=null){
-			textView.append("address£º ");
-			textView.append(message.trim());
-			textView.append("\n");
-		} else {
-			System.out.println("textview is null!");
-		}
-	}
 	
 	private final class ButtonClickListener implements View.OnClickListener{
 		
 		public void onClick(View v){
 			String number=numberText.getText().toString();
 			String content=contentText.getText().toString();
-			sendMessage(v);
 			tcpSender.send(content);
 			contentText.setText("");
 			Toast.makeText(MainActivity.this,R.string.success,Toast.LENGTH_LONG).show();;
