@@ -4,7 +4,7 @@ import java.net.*;
 import java.io.*;
 
 
-public class client implements Runnable {
+public class UdpClient implements Runnable {
 	static String serverAddressStr = "224.0.0.1";
 	static int BROADCAST_PORT = 9898;
 	static int TTLTime = 255;
@@ -25,7 +25,7 @@ public class client implements Runnable {
 
 	}
 
-	public client(TcpSender ts) {
+	public UdpClient(TcpSender ts) {
 		this.ts = ts;
 	}
 }
