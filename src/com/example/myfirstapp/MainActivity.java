@@ -119,6 +119,7 @@ public class MainActivity extends ActionBarActivity {
 					spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
 					textView.append(spannableString);
 					scrollDown();
+					textView.append("\n");
 					}
 				catch(Exception e){
 					e.printStackTrace();
@@ -138,12 +139,15 @@ public class MainActivity extends ActionBarActivity {
 					spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
 					textView.append(spannableString);
 					scrollDown();
+					textView.append("\n");
 					}
 				catch(Exception e){
 					e.printStackTrace();
 					}
 				}	
 			});
+			
+		
 			
 			//send face3
 			ib3.setOnClickListener(new OnClickListener(){
@@ -157,6 +161,7 @@ public class MainActivity extends ActionBarActivity {
 					spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
 					textView.append(spannableString);
 					scrollDown();
+					textView.append("\n");
 					}
 				catch(Exception e){
 					e.printStackTrace();
@@ -176,6 +181,7 @@ public class MainActivity extends ActionBarActivity {
 					spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
 					textView.append(spannableString);
 					scrollDown();
+					textView.append("\n");
 					}
 				catch(Exception e){
 					e.printStackTrace();
@@ -194,6 +200,7 @@ public class MainActivity extends ActionBarActivity {
 					spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
 					textView.append(spannableString);
 					scrollDown();
+					textView.append("\n");
 					}
 				catch(Exception e){
 					e.printStackTrace();
@@ -212,6 +219,7 @@ public class MainActivity extends ActionBarActivity {
 					spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
 					textView.append(spannableString);
 					scrollDown();
+					textView.append("\n");
 					}
 				catch(Exception e){
 					e.printStackTrace();
@@ -230,6 +238,7 @@ public class MainActivity extends ActionBarActivity {
 					spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
 					textView.append(spannableString);
 					scrollDown();
+					textView.append("\n");
 					}
 				catch(Exception e){
 					e.printStackTrace();
