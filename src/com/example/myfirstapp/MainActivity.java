@@ -34,6 +34,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +51,7 @@ public class MainActivity extends ActionBarActivity {
 	private Handler mHandler;
 	private Fragment mFragment;
 	private View fragmentFace;
+	private ScrollView scrollView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +73,7 @@ public class MainActivity extends ActionBarActivity {
 		textView=(TextView) this.findViewById(R.id.display);
 		numberText=(EditText) this.findViewById(R.id.To);
 		contentText=(EditText) this.findViewById(R.id.edit_message);
+		scrollView = (ScrollView) this.findViewById(R.id.scrollView1);
 		Button button=(Button) this.findViewById(R.id.button_send);
 		button.setOnClickListener(bc);
 		Button showExression=(Button) this.findViewById(R.id.edit);
@@ -115,6 +118,7 @@ public class MainActivity extends ActionBarActivity {
 					SpannableString spannableString=new SpannableString("face");
 					spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
 					textView.append(spannableString);
+					scrollDown();
 					}
 				catch(Exception e){
 					e.printStackTrace();
@@ -133,6 +137,7 @@ public class MainActivity extends ActionBarActivity {
 					SpannableString spannableString=new SpannableString("face");
 					spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
 					textView.append(spannableString);
+					scrollDown();
 					}
 				catch(Exception e){
 					e.printStackTrace();
@@ -151,6 +156,7 @@ public class MainActivity extends ActionBarActivity {
 					SpannableString spannableString=new SpannableString("face");
 					spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
 					textView.append(spannableString);
+					scrollDown();
 					}
 				catch(Exception e){
 					e.printStackTrace();
@@ -169,6 +175,7 @@ public class MainActivity extends ActionBarActivity {
 					SpannableString spannableString=new SpannableString("face");
 					spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
 					textView.append(spannableString);
+					scrollDown();
 					}
 				catch(Exception e){
 					e.printStackTrace();
@@ -186,6 +193,7 @@ public class MainActivity extends ActionBarActivity {
 					SpannableString spannableString=new SpannableString("face");
 					spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
 					textView.append(spannableString);
+					scrollDown();
 					}
 				catch(Exception e){
 					e.printStackTrace();
@@ -203,6 +211,7 @@ public class MainActivity extends ActionBarActivity {
 					SpannableString spannableString=new SpannableString("face");
 					spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
 					textView.append(spannableString);
+					scrollDown();
 					}
 				catch(Exception e){
 					e.printStackTrace();
@@ -220,6 +229,7 @@ public class MainActivity extends ActionBarActivity {
 					SpannableString spannableString=new SpannableString("face");
 					spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
 					textView.append(spannableString);
+					scrollDown();
 					}
 				catch(Exception e){
 					e.printStackTrace();
@@ -251,6 +261,7 @@ public class MainActivity extends ActionBarActivity {
 									message.substring(myIP.length());
 						}
 						textView.append(message);
+						scrollDown();
 					} else {
 						System.out.println("::textView is null");						
 					}
@@ -286,6 +297,17 @@ public class MainActivity extends ActionBarActivity {
 		}).start();
 	}
 	
+	private void scrollDown() {
+		mHandler.post(new Runnable() {
+
+			@Override
+			public void run() {
+				MainActivity.this.scrollView.fullScroll(View.FOCUS_DOWN);
+			}
+			
+		});
+	}
+	
 	private final class ButtonClickListener implements View.OnClickListener{
 		
 		public void onClick(View v){
@@ -293,6 +315,7 @@ public class MainActivity extends ActionBarActivity {
 			String content=contentText.getText().toString();
 			tcpSender.send(content);
 			contentText.setText("");
+			scrollDown();
 			Toast.makeText(MainActivity.this,R.string.success,Toast.LENGTH_LONG).show();;
 		}
 		
