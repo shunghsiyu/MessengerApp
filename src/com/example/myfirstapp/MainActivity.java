@@ -10,7 +10,6 @@ import java.util.Random;
 
 import android.app.Activity;
 import android.content.Intent;
-
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -34,6 +33,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -93,6 +93,142 @@ public class MainActivity extends ActionBarActivity {
 				}
 			}
 		});
+		
+			ImageButton ib1=(ImageButton) this.findViewById(R.id.imageFace1);
+			ImageButton ib2=(ImageButton) this.findViewById(R.id.imageFace2);
+			ImageButton ib3=(ImageButton) this.findViewById(R.id.imageFace3);
+			ImageButton ib4=(ImageButton) this.findViewById(R.id.imageFace4);
+			ImageButton ib5=(ImageButton) this.findViewById(R.id.imageFace5);
+			ImageButton ib6=(ImageButton) this.findViewById(R.id.imageFace6);
+			ImageButton ib7=(ImageButton) this.findViewById(R.id.imageFace7);
+			
+
+		//	ib.setImageResource(R.drawable.face1);
+			//send face1 
+			ib1.setOnClickListener(new OnClickListener(){
+				public void onClick(View view){
+					try{
+					Field field=R.drawable.class.getDeclaredField("face"+1);
+					int resourceID=Integer.parseInt(field.get(null).toString());
+					Bitmap bitmap=BitmapFactory.decodeResource(getResources(), resourceID);
+					ImageSpan span=new ImageSpan(MainActivity.this,bitmap);
+					SpannableString spannableString=new SpannableString("face");
+					spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+					textView.append(spannableString);
+					}
+				catch(Exception e){
+					e.printStackTrace();
+					}
+				}	
+			});
+			
+			//send face2
+			ib2.setOnClickListener(new OnClickListener(){
+				public void onClick(View view){
+					try{
+					Field field=R.drawable.class.getDeclaredField("face"+2);
+					int resourceID=Integer.parseInt(field.get(null).toString());
+					Bitmap bitmap=BitmapFactory.decodeResource(getResources(), resourceID);
+					ImageSpan span=new ImageSpan(MainActivity.this,bitmap);
+					SpannableString spannableString=new SpannableString("face");
+					spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+					textView.append(spannableString);
+					}
+				catch(Exception e){
+					e.printStackTrace();
+					}
+				}	
+			});
+			
+			//send face3
+			ib3.setOnClickListener(new OnClickListener(){
+				public void onClick(View view){
+					try{
+					Field field=R.drawable.class.getDeclaredField("face"+3);
+					int resourceID=Integer.parseInt(field.get(null).toString());
+					Bitmap bitmap=BitmapFactory.decodeResource(getResources(), resourceID);
+					ImageSpan span=new ImageSpan(MainActivity.this,bitmap);
+					SpannableString spannableString=new SpannableString("face");
+					spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+					textView.append(spannableString);
+					}
+				catch(Exception e){
+					e.printStackTrace();
+					}
+				}	
+			});
+			
+			//send face4
+			ib4.setOnClickListener(new OnClickListener(){
+				public void onClick(View view){
+					try{
+					Field field=R.drawable.class.getDeclaredField("face"+4);
+					int resourceID=Integer.parseInt(field.get(null).toString());
+					Bitmap bitmap=BitmapFactory.decodeResource(getResources(), resourceID);
+					ImageSpan span=new ImageSpan(MainActivity.this,bitmap);
+					SpannableString spannableString=new SpannableString("face");
+					spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+					textView.append(spannableString);
+					}
+				catch(Exception e){
+					e.printStackTrace();
+					}
+				}	
+			});
+			//send face5
+			ib5.setOnClickListener(new OnClickListener(){
+				public void onClick(View view){
+					try{
+					Field field=R.drawable.class.getDeclaredField("face"+5);
+					int resourceID=Integer.parseInt(field.get(null).toString());
+					Bitmap bitmap=BitmapFactory.decodeResource(getResources(), resourceID);
+					ImageSpan span=new ImageSpan(MainActivity.this,bitmap);
+					SpannableString spannableString=new SpannableString("face");
+					spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+					textView.append(spannableString);
+					}
+				catch(Exception e){
+					e.printStackTrace();
+					}
+				}	
+			});
+			//send face6
+			ib6.setOnClickListener(new OnClickListener(){
+				public void onClick(View view){
+					try{
+					Field field=R.drawable.class.getDeclaredField("face"+6);
+					int resourceID=Integer.parseInt(field.get(null).toString());
+					Bitmap bitmap=BitmapFactory.decodeResource(getResources(), resourceID);
+					ImageSpan span=new ImageSpan(MainActivity.this,bitmap);
+					SpannableString spannableString=new SpannableString("face");
+					spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+					textView.append(spannableString);
+					}
+				catch(Exception e){
+					e.printStackTrace();
+					}
+				}	
+			});
+			//send face7
+			ib7.setOnClickListener(new OnClickListener(){
+				public void onClick(View view){
+					try{
+					Field field=R.drawable.class.getDeclaredField("face"+7);
+					int resourceID=Integer.parseInt(field.get(null).toString());
+					Bitmap bitmap=BitmapFactory.decodeResource(getResources(), resourceID);
+					ImageSpan span=new ImageSpan(MainActivity.this,bitmap);
+					SpannableString spannableString=new SpannableString("face");
+					spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+					textView.append(spannableString);
+					}
+				catch(Exception e){
+					e.printStackTrace();
+					}
+				}	
+			});
+			
+			
+			
 		// Bind Handler with main Looper
 		mHandler = new Handler(Looper.getMainLooper()) {
 			// Tell main looper to poll uiMessageQueue
