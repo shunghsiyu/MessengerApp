@@ -77,13 +77,14 @@ public class MainActivity extends ActionBarActivity {
 		
 		final ViewGroup linear = (ViewGroup) this.findViewById(R.id.linear);
 		fragmentFace = this.getLayoutInflater().inflate(R.layout.fragment_face, linear, false);
+		// Set fragmentFace's visibility to GONE so it won't show when added
+		fragmentFace.setVisibility(View.GONE);
+		// Add fragmentFace to fragment_main
+		linear.addView(fragmentFace);
+		// Added click listener for button 'image'
 		showExression.setOnClickListener(new OnClickListener(){
 			public void onClick(View view){
-				// Check if the view has been added to fragment_main
-				if(linear.findViewById(R.id.horizontalScrollView) == null) {
-					// Add the view to fragment_main if it hasn't been added
-					linear.addView(fragmentFace);
-				} else if(fragmentFace.getVisibility() == View.GONE) {
+				if(fragmentFace.getVisibility() == View.GONE) {
 					// Toggle the view to visible if it is not
 					fragmentFace.setVisibility(View.VISIBLE);
 				} else {
