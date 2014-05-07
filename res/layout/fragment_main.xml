@@ -54,7 +54,7 @@
             android:id="@+id/edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#8EE5EE"
+            android:background="@drawable/rectangle"
             android:text="image" />
 
         <EditText
@@ -68,12 +68,12 @@
 
             <requestFocus />
         </EditText>
-
+ 
         <Button
             android:id="@+id/button_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#8EE5EE"
+            android:background="@drawable/rectangle"
             android:onClick="sendMessage"
             android:text="@string/button_send" />
     </LinearLayout>

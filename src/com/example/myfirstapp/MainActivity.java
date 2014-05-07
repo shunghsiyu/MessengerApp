@@ -69,7 +69,6 @@ public class MainActivity extends ActionBarActivity {
 		setContentView(R.layout.fragment_main);
 		
 		ButtonClickListener bc=new ButtonClickListener();
-		ButtonClickListener bc2=new ButtonClickListener();
 		textView=(TextView) this.findViewById(R.id.display);
 		numberText=(EditText) this.findViewById(R.id.To);
 		contentText=(EditText) this.findViewById(R.id.edit_message);
@@ -111,15 +110,7 @@ public class MainActivity extends ActionBarActivity {
 			ib1.setOnClickListener(new OnClickListener(){
 				public void onClick(View view){
 					try{
-					Field field=R.drawable.class.getDeclaredField("face"+1);
-					int resourceID=Integer.parseInt(field.get(null).toString());
-					Bitmap bitmap=BitmapFactory.decodeResource(getResources(), resourceID);
-					ImageSpan span=new ImageSpan(MainActivity.this,bitmap);
-					SpannableString spannableString=new SpannableString("face");
-					spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
-					textView.append(spannableString);
-					scrollDown();
-					textView.append("\n");
+						imageSenigSameCode(1);
 					}
 				catch(Exception e){
 					e.printStackTrace();
@@ -131,15 +122,7 @@ public class MainActivity extends ActionBarActivity {
 			ib2.setOnClickListener(new OnClickListener(){
 				public void onClick(View view){
 					try{
-					Field field=R.drawable.class.getDeclaredField("face"+2);
-					int resourceID=Integer.parseInt(field.get(null).toString());
-					Bitmap bitmap=BitmapFactory.decodeResource(getResources(), resourceID);
-					ImageSpan span=new ImageSpan(MainActivity.this,bitmap);
-					SpannableString spannableString=new SpannableString("face");
-					spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
-					textView.append(spannableString);
-					scrollDown();
-					textView.append("\n");
+						imageSenigSameCode(2);
 					}
 				catch(Exception e){
 					e.printStackTrace();
@@ -147,21 +130,11 @@ public class MainActivity extends ActionBarActivity {
 				}	
 			});
 			
-		
-			
 			//send face3
 			ib3.setOnClickListener(new OnClickListener(){
 				public void onClick(View view){
 					try{
-					Field field=R.drawable.class.getDeclaredField("face"+3);
-					int resourceID=Integer.parseInt(field.get(null).toString());
-					Bitmap bitmap=BitmapFactory.decodeResource(getResources(), resourceID);
-					ImageSpan span=new ImageSpan(MainActivity.this,bitmap);
-					SpannableString spannableString=new SpannableString("face");
-					spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
-					textView.append(spannableString);
-					scrollDown();
-					textView.append("\n");
+						imageSenigSameCode(3);
 					}
 				catch(Exception e){
 					e.printStackTrace();
@@ -173,15 +146,7 @@ public class MainActivity extends ActionBarActivity {
 			ib4.setOnClickListener(new OnClickListener(){
 				public void onClick(View view){
 					try{
-					Field field=R.drawable.class.getDeclaredField("face"+4);
-					int resourceID=Integer.parseInt(field.get(null).toString());
-					Bitmap bitmap=BitmapFactory.decodeResource(getResources(), resourceID);
-					ImageSpan span=new ImageSpan(MainActivity.this,bitmap);
-					SpannableString spannableString=new SpannableString("face");
-					spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
-					textView.append(spannableString);
-					scrollDown();
-					textView.append("\n");
+						imageSenigSameCode(4);
 					}
 				catch(Exception e){
 					e.printStackTrace();
@@ -192,15 +157,7 @@ public class MainActivity extends ActionBarActivity {
 			ib5.setOnClickListener(new OnClickListener(){
 				public void onClick(View view){
 					try{
-					Field field=R.drawable.class.getDeclaredField("face"+5);
-					int resourceID=Integer.parseInt(field.get(null).toString());
-					Bitmap bitmap=BitmapFactory.decodeResource(getResources(), resourceID);
-					ImageSpan span=new ImageSpan(MainActivity.this,bitmap);
-					SpannableString spannableString=new SpannableString("face");
-					spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
-					textView.append(spannableString);
-					scrollDown();
-					textView.append("\n");
+						imageSenigSameCode(5);
 					}
 				catch(Exception e){
 					e.printStackTrace();
@@ -211,15 +168,7 @@ public class MainActivity extends ActionBarActivity {
 			ib6.setOnClickListener(new OnClickListener(){
 				public void onClick(View view){
 					try{
-					Field field=R.drawable.class.getDeclaredField("face"+6);
-					int resourceID=Integer.parseInt(field.get(null).toString());
-					Bitmap bitmap=BitmapFactory.decodeResource(getResources(), resourceID);
-					ImageSpan span=new ImageSpan(MainActivity.this,bitmap);
-					SpannableString spannableString=new SpannableString("face");
-					spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
-					textView.append(spannableString);
-					scrollDown();
-					textView.append("\n");
+						imageSenigSameCode(6);
 					}
 				catch(Exception e){
 					e.printStackTrace();
@@ -230,22 +179,13 @@ public class MainActivity extends ActionBarActivity {
 			ib7.setOnClickListener(new OnClickListener(){
 				public void onClick(View view){
 					try{
-					Field field=R.drawable.class.getDeclaredField("face"+7);
-					int resourceID=Integer.parseInt(field.get(null).toString());
-					Bitmap bitmap=BitmapFactory.decodeResource(getResources(), resourceID);
-					ImageSpan span=new ImageSpan(MainActivity.this,bitmap);
-					SpannableString spannableString=new SpannableString("face");
-					spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
-					textView.append(spannableString);
-					scrollDown();
-					textView.append("\n");
+						imageSenigSameCode(7);
 					}
 				catch(Exception e){
 					e.printStackTrace();
 					}
 				}	
 			});
-			
 			
 			
 		// Bind Handler with main Looper
@@ -315,6 +255,18 @@ public class MainActivity extends ActionBarActivity {
 			}
 			
 		});
+	}
+	
+	public void imageSenigSameCode(int x) throws NoSuchFieldException, NumberFormatException, IllegalAccessException, IllegalArgumentException{
+		Field field=R.drawable.class.getDeclaredField("face"+x);
+		int resourceID=Integer.parseInt(field.get(null).toString());
+		Bitmap bitmap=BitmapFactory.decodeResource(getResources(), resourceID);
+		ImageSpan span=new ImageSpan(MainActivity.this,bitmap);
+		SpannableString spannableString=new SpannableString("face");
+		spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+		textView.append(spannableString);
+		scrollDown();
+		textView.append("\n");
 	}
 	
 	private final class ButtonClickListener implements View.OnClickListener{
