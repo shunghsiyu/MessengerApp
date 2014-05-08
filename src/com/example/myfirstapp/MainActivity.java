@@ -47,12 +47,16 @@ public class MainActivity extends ActionBarActivity {
 	private Thread senderThread;
 	private TcpReceiver tcpReceiver;
 	private Thread receiverThread;
+	private UdpBroadcaster udpBroadcaster;
+	private Thread broadcasterThread;
+	private UdpClient udpClient;
+	private Thread clientThread;
 	private Queue<String> uiMessageQueue;
 	private Handler mHandler;
 	private Fragment mFragment;
 	private View fragmentFace;
 	private ScrollView scrollView;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -221,6 +225,11 @@ public class MainActivity extends ActionBarActivity {
 		};
 		// Create a queue to store incoming message
 		uiMessageQueue = new ArrayBlockingQueue<String>(50);
+	}
+	
+	@Override
+	protected void onStart() {
+		super.onStart();
 		// Launch TCP Sender
 		tcpSender = new TcpSender();
 		senderThread = new Thread(tcpSender);
@@ -229,21 +238,24 @@ public class MainActivity extends ActionBarActivity {
 		tcpReceiver = new TcpReceiver(tcpSender, uiMessageQueue, mHandler);
 		receiverThread = new Thread(tcpReceiver);
 		receiverThread.start();
-		// Added self IP for debugging purpose
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				InetAddress ip = null;
-				try {
-					ip = InetAddress.getLocalHost();
-				} catch (UnknownHostException e) {
-					e.printStackTrace();
-				}
-				tcpSender.addReceiver(ip);
-			}
-			
-		}).start();
+		// Launch UDP Broadcaster
+		udpBroadcaster = new UdpBroadcaster();
+		broadcasterThread = new Thread(udpBroadcaster);
+		broadcasterThread.start();
+		// Launch UDP Client
+		udpClient = new UdpClient(tcpSender);
+		clientThread = new Thread(udpClient);
+		clientThread.start();
+	}
+	
+	@Override
+	protected void onStop() {
+		super.onStop();
+		senderThread.interrupt();
+		tcpReceiver.close();
+		receiverThread.interrupt();
+		broadcasterThread.interrupt();
+		clientThread.interrupt();
 	}
 	
 	private void scrollDown() {
