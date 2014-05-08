@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,6 +23,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.telephony.SmsManager;
+import android.text.Html;
+import android.text.Html.ImageGetter;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
 import android.text.TextUtils;
@@ -39,6 +42,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
+	public static int[] mThumbIds = {
+		R.drawable.face1,
+		R.drawable.face2,
+		R.drawable.face3,
+		R.drawable.face4,
+		R.drawable.face5,
+		R.drawable.face6,
+		R.drawable.face7
+		};
 	private static final String TASK_FRAGMENT = "task_fragment";
 	private EditText numberText;
 	private EditText contentText;
@@ -56,6 +68,7 @@ public class MainActivity extends ActionBarActivity {
 	private Fragment mFragment;
 	private View fragmentFace;
 	private ScrollView scrollView;
+	private ImageGetter imageGetter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +112,16 @@ public class MainActivity extends ActionBarActivity {
 				}
 			}
 		});
+		
+		imageGetter = new ImageGetter() {
+			@Override
+			public Drawable getDrawable(String source) {
+				int id = Integer.parseInt(source);
+				Drawable d = MainActivity.this.getResources().getDrawable(id);
+				d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
+				return d;
+			}
+		};
 		
 			ImageButton ib1=(ImageButton) this.findViewById(R.id.imageFace1);
 			ImageButton ib2=(ImageButton) this.findViewById(R.id.imageFace2);
@@ -206,14 +229,10 @@ public class MainActivity extends ActionBarActivity {
 				} else {
 					System.out.println("::mainActivity is null");
 				}
-				String myIP = "127.0.0.1:";
 				if(message != null) {
 					if(textView != null) {
-						if(message.startsWith(myIP)) {
-							message = "Me (127.0.0.1):"+ 
-									message.substring(myIP.length());
-						}
-						textView.append(message);
+						textView.append(Html.fromHtml(message, imageGetter, null));
+						textView.append("\n");
 						scrollDown();
 					} else {
 						System.out.println("::textView is null");						
@@ -270,35 +289,30 @@ public class MainActivity extends ActionBarActivity {
 	}
 	
 	public void imageSenigSameCode(int x) throws NoSuchFieldException, NumberFormatException, IllegalAccessException, IllegalArgumentException{
-		Field field=R.drawable.class.getDeclaredField("face"+x);
-		int resourceID=Integer.parseInt(field.get(null).toString());
-		Bitmap bitmap=BitmapFactory.decodeResource(getResources(), resourceID);
-		ImageSpan span=new ImageSpan(MainActivity.this,bitmap);
-		SpannableString spannableString=new SpannableString("face");
-		spannableString.setSpan(span, 0, 4, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
-		textView.append(spannableString);
-		scrollDown();
-		textView.append("\n");
+		String cs = "<img src='" + mThumbIds[x-1] + "'/>";
+		tcpSender.send(cs);
 	}
 	
 	private final class ButtonClickListener implements View.OnClickListener{
 		
 		public void onClick(View v){
-			new Thread(new Runnable() {
-
-				@Override
-				public void run() {
-					InetAddress ip = null;
-					try {
-						ip = InetAddress.getByName(numberText.getText().toString());
-						tcpSender.addReceiver(ip);
-					} catch (UnknownHostException e) {
-						// Ignore
+			if("".equals(contentText.getText().toString())) {
+				new Thread(new Runnable() {
+	
+					@Override
+					public void run() {
+						InetAddress ip = null;
+						try {
+							ip = InetAddress.getByName(contentText.getText().toString());
+							tcpSender.addReceiver(ip);
+						} catch (UnknownHostException e) {
+							// Ignore
+						}
 					}
-				}
-				
-			}).start();
-			String content=contentText.getText().toString();
+					
+				}).start();
+			}
+			String content= contentText.getText().toString();
 			tcpSender.send(content);
 			contentText.setText("");
 			scrollDown();
