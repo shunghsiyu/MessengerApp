@@ -9,9 +9,10 @@ public class UdpBroadcaster implements Runnable {
 
     @Override
     public void run() {
+    	DatagramSocket sendSocket = null;
         while (!Thread.interrupted()) {
             try {
-                DatagramSocket sendSocket = new DatagramSocket();
+                sendSocket = new DatagramSocket();
                 sendSocket.setBroadcast(true);
 
                 byte[] buf = "".getBytes();
@@ -22,8 +23,6 @@ public class UdpBroadcaster implements Runnable {
                         ip, PORT);
 
                 sendSocket.send(sendPacket);
-                sendSocket.close();
-                
             } catch (UnknownHostException e) {
 				System.out.println("Can't get broadcast address");
 				e.printStackTrace();
@@ -33,12 +32,17 @@ public class UdpBroadcaster implements Runnable {
 			} catch (IOException e) {
 				System.out.println("Can't send packet");
 				e.printStackTrace();
+			} finally {
+				if(sendSocket != null) {
+					sendSocket.close();
+					sendSocket = null;
+				}
 			}
             
             try {    
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
-                // Ignore
+                break;
             }
         }
     }
