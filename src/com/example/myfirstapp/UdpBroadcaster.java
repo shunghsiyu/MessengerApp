@@ -1,38 +1,47 @@
 package com.example.myfirstapp;
 
+import java.io.IOException;
 import java.net.*;
-import java.io.*;
-
 
 public class UdpBroadcaster implements Runnable {
-	private String server_ip;
-	
-	
-	@Override
-	public void run() {
-		 while (!Thread.interrupted()) {
-	            try {
-                 
-	                DatagramSocket sendSocket = new DatagramSocket();
-	                sendSocket.setBroadcast(true);
+	public static int PORT = 10332;
+    public static String BROADCAST_ADDRESS = "255.255.255.255";
 
-	                String server_ip = InetAddress.getLocalHost().toString();
+    @Override
+    public void run() {
+        while (!Thread.interrupted()) {
+            try {
+                DatagramSocket sendSocket = new DatagramSocket();
+                sendSocket.setBroadcast(true);
 
-	                byte[] buf = server_ip.getBytes();
+                byte[] buf = "".getBytes();
 
-	                int port = 8888;
-	                InetAddress ip = InetAddress.getByName("255.255.255.255");
+                InetAddress ip = InetAddress.getByName(BROADCAST_ADDRESS);
 
-	                DatagramPacket sendPacket = new DatagramPacket(buf, buf.length, ip, port);
+                DatagramPacket sendPacket = new DatagramPacket(buf, buf.length,
+                        ip, PORT);
 
-	                sendSocket.send(sendPacket);
-	                System.out.println("data sent");
-	                sendSocket.close();
-	            } catch (Exception e) {
-	                e.printStackTrace();
-	            }
+                sendSocket.send(sendPacket);
+                sendSocket.close();
+                
+            } catch (UnknownHostException e) {
+				System.out.println("Can't get broadcast address");
+				e.printStackTrace();
+			} catch (SocketException e) {
+				System.out.println("Error opening socket");
+				e.printStackTrace();
+			} catch (IOException e) {
+				System.out.println("Can't send packet");
+				e.printStackTrace();
+			}
+            
+            try {    
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                // Ignore
+            }
+        }
+    }
 
-		 }
-	}
 }
-
+  
